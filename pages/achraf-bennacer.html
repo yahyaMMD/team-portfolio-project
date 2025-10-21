@@ -71,10 +71,11 @@
           var(--bg-gradient-start) 0%,
           var(--bg-gradient-end) 100%
         );
-        padding: 4rem 2rem;
+        padding: 5rem 2rem;
         text-align: center;
         position: relative;
         overflow: hidden;
+        clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
       }
 
       .header::before {
@@ -110,39 +111,90 @@
         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
         border: 5px solid rgba(255, 255, 255, 0.3);
         animation: fadeInScale 0.8s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .profile-image-container::before {
+        content: "";
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        bottom: -10px;
+        background: linear-gradient(
+          45deg,
+          rgba(255, 255, 255, 0.1),
+          rgba(255, 255, 255, 0.05)
+        );
+        border-radius: 50%;
+        z-index: -1;
       }
 
       .profile-image-container i {
         font-size: 5rem;
-        color: rgba(255, 255, 255, 0.8);
+        color: rgba(255, 255, 255, 0.9);
       }
 
       .header h1 {
         font-family: "Poppins", sans-serif;
-        font-size: 3rem;
+        font-size: 3.2rem;
         font-weight: 800;
         color: #ffffff;
         margin-bottom: 0.5rem;
         animation: fadeInUp 0.8s ease 0.2s backwards;
         letter-spacing: -0.5px;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
       }
 
       .header .role {
-        font-size: 1.3rem;
+        font-size: 1.4rem;
         color: rgba(255, 255, 255, 0.95);
         font-weight: 500;
         margin-bottom: 1.5rem;
         animation: fadeInUp 0.8s ease 0.3s backwards;
+        position: relative;
+        display: inline-block;
+      }
+
+      .header .role::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: rgba(255, 255, 255, 0.5);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s ease;
+      }
+
+      .header .role:hover::after {
+        transform: scaleX(1);
       }
 
       .header .institution {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
         color: rgba(255, 255, 255, 0.85);
-        margin-bottom: 2rem;
+        margin-bottom: 2.5rem;
         animation: fadeInUp 0.8s ease 0.4s backwards;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
       }
 
-      .github-link {
+      .header-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        animation: fadeInUp 0.8s ease 0.5s backwards;
+      }
+
+      .github-link,
+      .contact-btn {
         display: inline-flex;
         align-items: center;
         gap: 0.75rem;
@@ -155,16 +207,24 @@
         font-size: 1.05rem;
         transition: all 0.3s ease;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        animation: fadeInUp 0.8s ease 0.5s backwards;
       }
 
-      .github-link:hover {
+      .contact-btn {
+        background: transparent;
+        color: white;
+        border: 2px solid rgba(255, 255, 255, 0.7);
+      }
+
+      .github-link:hover,
+      .contact-btn:hover {
         background: #ffffff;
         transform: translateY(-3px);
         box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+        color: var(--primary-color);
       }
 
-      .github-link i {
+      .github-link i,
+      .contact-btn i {
         font-size: 1.3rem;
       }
 
@@ -174,13 +234,39 @@
       .container {
         max-width: 1200px;
         margin: 0 auto;
-        padding: 3rem 2rem;
+        padding: 4rem 2rem;
       }
 
       .main-content {
         display: grid;
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: 2.5rem;
+      }
+
+      .section-title {
+        font-family: "Poppins", sans-serif;
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        text-align: center;
+        margin-bottom: 3rem;
+        position: relative;
+      }
+
+      .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(
+          to right,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        border-radius: 2px;
       }
 
       /* ============================================
@@ -193,6 +279,22 @@
         box-shadow: var(--shadow-md);
         transition: all 0.3s ease;
         animation: fadeInUp 0.6s ease backwards;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(
+          to right,
+          var(--primary-color),
+          var(--secondary-color)
+        );
       }
 
       .card:hover {
@@ -233,6 +335,7 @@
         justify-content: center;
         color: #ffffff;
         font-size: 1.5rem;
+        box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
       }
 
       .card h2 {
@@ -253,7 +356,20 @@
       }
 
       .about-text p {
-        margin-bottom: 1rem;
+        margin-bottom: 1.5rem;
+        position: relative;
+        padding-left: 1.5rem;
+      }
+
+      .about-text p::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.7rem;
+        width: 8px;
+        height: 8px;
+        background: var(--primary-color);
+        border-radius: 50%;
       }
 
       .about-text p:last-child {
@@ -273,7 +389,7 @@
 
       .skills-category h3 {
         font-family: "Poppins", sans-serif;
-        font-size: 1.2rem;
+        font-size: 1.3rem;
         font-weight: 600;
         color: var(--primary-color);
         margin-bottom: 1rem;
@@ -301,6 +417,28 @@
         font-weight: 500;
         transition: all 0.3s ease;
         border: 1px solid var(--border-color);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .skill-tag::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.6),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+
+      .skill-tag:hover::before {
+        left: 100%;
       }
 
       .skill-tag:hover {
@@ -315,20 +453,117 @@
       }
 
       /* ============================================
+           PROJECTS SECTION
+        ============================================ */
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      .project-card {
+        background: var(--card-bg);
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: var(--shadow-md);
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+
+      .project-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-xl);
+      }
+
+      .project-image {
+        height: 180px;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 3rem;
+      }
+
+      .project-content {
+        padding: 1.5rem;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .project-title {
+        font-family: "Poppins", sans-serif;
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--text-primary);
+      }
+
+      .project-description {
+        color: var(--text-secondary);
+        margin-bottom: 1.5rem;
+        flex-grow: 1;
+      }
+
+      .project-tech {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .project-tech span {
+        background: var(--bg-secondary);
+        color: var(--text-secondary);
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 500;
+      }
+
+      .project-links {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .project-link {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.9rem;
+        transition: all 0.2s ease;
+      }
+
+      .project-link:hover {
+        color: var(--secondary-color);
+        transform: translateX(3px);
+      }
+
+      /* ============================================
            FOOTER
         ============================================ */
       .footer {
-        background: var(--card-bg);
-        padding: 2rem;
+        background: linear-gradient(135deg, var(--text-primary), #2d3748);
+        padding: 3rem 2rem;
         text-align: center;
         margin-top: 3rem;
-        border-top: 1px solid var(--border-color);
-        box-shadow: var(--shadow-sm);
+        color: white;
       }
 
       .footer p {
-        color: var(--text-light);
+        color: rgba(255, 255, 255, 0.8);
         font-size: 0.95rem;
+        margin-bottom: 1.5rem;
       }
 
       .footer-links {
@@ -336,17 +571,46 @@
         justify-content: center;
         gap: 2rem;
         margin-top: 1rem;
+        flex-wrap: wrap;
       }
 
       .footer-links a {
-        color: var(--text-secondary);
+        color: rgba(255, 255, 255, 0.8);
         text-decoration: none;
         font-weight: 500;
         transition: color 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
       }
 
       .footer-links a:hover {
-        color: var(--primary-color);
+        color: white;
+      }
+
+      .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-top: 2rem;
+      }
+
+      .social-link {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+        transition: all 0.3s ease;
+      }
+
+      .social-link:hover {
+        background: var(--primary-color);
+        transform: translateY(-3px);
       }
 
       /* ============================================
@@ -419,6 +683,7 @@
       @media (max-width: 768px) {
         .header {
           padding: 3rem 1.5rem;
+          clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
         }
 
         .header h1 {
@@ -458,6 +723,22 @@
         .container {
           padding: 2rem 1.5rem;
         }
+
+        .header-actions {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .github-link,
+        .contact-btn {
+          width: 100%;
+          max-width: 250px;
+          justify-content: center;
+        }
+
+        .projects-grid {
+          grid-template-columns: 1fr;
+        }
       }
 
       @media (max-width: 480px) {
@@ -465,7 +746,8 @@
           font-size: 1.8rem;
         }
 
-        .github-link {
+        .github-link,
+        .contact-btn {
           padding: 0.85rem 1.5rem;
           font-size: 0.95rem;
         }
@@ -490,6 +772,10 @@
           bottom: 1.5rem;
           right: 1.5rem;
         }
+
+        .section-title {
+          font-size: 1.8rem;
+        }
       }
 
       /* ============================================
@@ -505,6 +791,11 @@
           border: 1px solid var(--border-color);
           page-break-inside: avoid;
         }
+
+        .header {
+          background: #f0f0f0 !important;
+          color: #000 !important;
+        }
       }
     </style>
   </head>
@@ -515,27 +806,38 @@
         <div class="profile-image-container">
           <i class="fas fa-user-circle"></i>
         </div>
-        <h1>Mahdi Yahya Abderrahmane</h1>
-        <p class="role">Software Engineering Student</p>
+        <h1>ACHRAF BENNACER</h1>
+        <p class="role">Artificial intelligence Student</p>
         <p class="institution">
-          <i class="fas fa-graduation-cap"></i> École Nationale Supérieure
-          d'Informatique (ENSIA)
+          <i class="fas fa-graduation-cap"></i>The National Higher School of
+          Artificail intelligence (ENSIA)
         </p>
-        <a
-          href="https://github.com/yahyaMMD"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="github-link"
-          aria-label="Visit GitHub Profile"
-        >
-          <i class="fab fa-github"></i>
-          <span>View GitHub Profile</span>
-        </a>
+        <div class="header-actions">
+          <a
+            href="https://github.com/ax666raf"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="github-link"
+            aria-label="Visit GitHub Profile"
+          >
+            <i class="fab fa-github"></i>
+            <span>View GitHub Profile</span>
+          </a>
+          <a
+            href="https://www.linkedin.com/in/achraf-baha-eddine-bennacer-5a91012a4/"
+            class="contact-btn"
+            aria-label="Contact Me"
+          >
+            <i class="fas fa-envelope"></i>
+            <span>Contact Me</span>
+          </a>
+        </div>
       </div>
     </header>
 
     <!-- MAIN CONTENT -->
     <main class="container">
+      <h2 class="section-title">About Me</h2>
       <div class="main-content">
         <!-- ABOUT ME SECTION -->
         <section class="card" id="about">
@@ -561,10 +863,11 @@
               industry best practices.
             </p>
             <p>
-              I am actively seeking opportunities to apply my academic knowledge
-              to real-world software development challenges, contributing to
-              meaningful projects while continuously expanding my technical
-              expertise and professional skills.
+              I’m eager to apply my academic knowledge to real-world software
+              development, contributing to meaningful projects while expanding
+              my technical and professional skills. Active in tech clubs, I’m
+              passionate about AI, machine learning, and emerging technologies
+              like quantum computing and entanglement.
             </p>
           </div>
         </section>
@@ -585,7 +888,7 @@
               <span class="skill-tag">Python</span>
               <span class="skill-tag">Dart</span>
               <span class="skill-tag">JavaScript</span>
-              <span class="skill-tag">TypeScript</span>
+
               <span class="skill-tag">C++</span>
             </div>
           </div>
@@ -599,10 +902,9 @@
               <span class="skill-tag">React</span>
               <span class="skill-tag">Node.js</span>
               <span class="skill-tag">Next.js</span>
-              <span class="skill-tag">Nest.js</span>
-              <span class="skill-tag">Express.js</span>
+
               <span class="skill-tag">Django</span>
-              <span class="skill-tag">Prisma</span>
+              <span class="skill-tag">Flask</span>
             </div>
           </div>
 
@@ -611,7 +913,7 @@
             <h3><i class="fas fa-database"></i> Databases</h3>
             <div class="skills-list">
               <span class="skill-tag">MySQL</span>
-              <span class="skill-tag">MongoDB</span>
+              <span class="skill-tag">Supabase</span>
             </div>
           </div>
 
@@ -637,20 +939,115 @@
             </div>
           </div>
         </section>
+
+        <!-- PROJECTS SECTION -->
+        <h2 class="section-title">Projects</h2>
+        <section class="card" id="projects">
+          <div class="card-header">
+            <div class="card-icon">
+              <i class="fas fa-project-diagram"></i>
+            </div>
+            <h2>My Projects</h2>
+          </div>
+          <div class="projects-grid">
+            <div class="project-card">
+              <div class="project-image">
+                <i class="fas fa-shopping-cart"></i>
+              </div>
+              <div class="project-content">
+                <h3 class="project-title">Gym Platform</h3>
+                <p class="project-description">
+                  A full-stack Gym solution with user authentication, products
+                  catalog, exercise suggestions, and payment integration.
+                </p>
+                <div class="project-tech">
+                  <span>React</span>
+                  <span>Django</span>
+                  <span>MongoDB</span>
+                </div>
+                <div class="project-links">
+                  <a
+                    href="https://github.com/ENSIA-AI/GymPath"
+                    class="project-link"
+                  >
+                    <i class="fab fa-github"></i>
+                    <span>Code</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="project-card">
+              <div class="project-image">
+                <i class="fas fa-chart-line"></i>
+              </div>
+
+              <div class="project-content">
+                <h3 class="project-title">Touristic Guide App</h3>
+                <p class="project-description">
+                  A collaborative Touristic Guide application using AI search
+                  algorithms.
+                </p>
+                <div class="project-tech">
+                  <span>React</span>
+                  <span>Flask</span>
+
+                  <span>Supabase</span>
+                </div>
+                <div class="project-links">
+                  <a
+                    href="https://github.com/Ashreeef/AI-Project-Touristic-Tour-Recommendation"
+                    class="project-link"
+                  >
+                    <i class="fab fa-github"></i>
+                    <span>Code</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="project-card">
+              <div class="project-image">
+                <i class="fas fa-tasks"></i>
+              </div>
+              <div class="project-content">
+                <h3 class="project-title">Scientific club mobile App</h3>
+                <p class="project-description">
+                  A mobile app for managing club activities, events, and member
+                  engagement with an intuitive and interactive interface.
+                </p>
+                <div class="project-tech">
+                  <span>Flutter</span>
+                  <span>Supabase</span>
+
+                  <span>Flask</span>
+                </div>
+                <div class="project-links">
+                  <a
+                    href="https://github.com/BadriAmouri/Skill-Tell_App"
+                    class="project-link"
+                  >
+                    <i class="fab fa-github"></i>
+                    <span>Code</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </main>
 
     <!-- FOOTER -->
-    <footer class="footer">
-      <p>&copy; 2025 Mahdi Yahya Abderrahmane. All rights reserved.</p>
+    <footer class="footer" id="contact">
+      <p>&copy; 2025 bennacer achraf. All rights reserved.</p>
       <div class="footer-links">
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
+        <a href="#about"><i class="fas fa-user"></i> About</a>
+        <a href="#skills"><i class="fas fa-code"></i> Skills</a>
+        <a href="#projects"><i class="fas fa-project-diagram"></i> Projects</a>
         <a
           href="https://github.com/yahyaMMD"
           target="_blank"
           rel="noopener noreferrer"
-          >GitHub</a
+          ><i class="fab fa-github"></i> GitHub</a
         >
       </div>
     </footer>
@@ -699,6 +1096,27 @@
             }
           }
         });
+      });
+
+      // ============================================
+      // ADD ANIMATION ON SCROLL
+      // ============================================
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.style.animation = "fadeInUp 0.6s ease forwards";
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll(".card").forEach((card) => {
+        observer.observe(card);
       });
     </script>
   </body>
